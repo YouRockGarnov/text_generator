@@ -1,5 +1,5 @@
 import json
-from pymorphy2 import MorphAnalyzer as pm
+#from pymorphy2 import MorphAnalyzer as pm
 import urllib
 
 

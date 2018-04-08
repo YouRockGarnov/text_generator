@@ -19,6 +19,9 @@ class InterfaceTrainer:
         self._parser.add_argument('--load-site', type=str,
                                   dest='site_file', default='')
 
+        self._parser.add_argument('--exit', action='store_true',
+                                  dest='exit', default=False)
+
     def interactive(self):
         args = None
 
@@ -42,10 +45,13 @@ class InterfaceTrainer:
         pass
 
     def _run(self, args):
-        if args.input_path != '':
-            self._trainer.put_file(args.input_path, args.lower_case)
+        if args.exit:
+            raise EOFError
         else:
-            sel
+            if args.input_path != '':
+                self._trainer.put_file(args.input_path, args.lower_case)
+            else:
+                pass
 
-        self._trainer.get_frequency_of_following()
-        self._trainer.record_model_in_file(args.model)
+            self._trainer.get_frequency_of_following()
+            self._trainer.record_model_in_file(args.model)

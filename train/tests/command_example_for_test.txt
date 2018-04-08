@@ -1,0 +1,1 @@
+--input-dir test.txt --lc --model model.json
