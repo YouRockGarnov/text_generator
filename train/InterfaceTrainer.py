@@ -1,38 +1,33 @@
 from trainer import Trainer
+import argparse
 
-class InterfaceTextGenerator:
+class InterfaceTrainer:
     def __init__(self, trainer: Trainer):
         self._trainer = trainer
         self._lower_case = False
+        self._parser = argparse.ArgumentParser(description='Train model with loaded text')
+
+        self._parser.add_argument('--input-dir', type=str,
+                                  dest='input_path', default='')
+
+        self._parser.add_argument('--model', type=str,
+                                  dest='model', default='')
+
+        self._parser.add_argument('--lc', action='store_true',
+                                  dest='lower_case', default=False)
+
+        self._parser.add_argument('--load-site', type=str,
+                                  dest='site_file', default='')
 
     def interactive(self):
-        filled_model = False
-        filled_input_dir = False
+        args = None
 
-        while(True):
+        while (True):
             try:
                 inp = input().split()
-                for i in range(len(inp)):
 
-                    if inp[i] == '--input-dir':
-                        self._input_dir_file()
-                        filled_input_dir = True
-
-                    elif inp[i] == '--model':
-                        self._model()
-                        filled_model = True
-
-                    elif inp[i] == '--lc':
-                        self._lower_case == True
-
-                    elif inp[i] == '--help':
-                        self._help()
-
-                    elif inp[i] == '--run':
-                        if filled_input_dir and filled_model:
-                            self._run()
-                        else:
-                            print('Fill --input-dir and --model, please!')
+                args = self._parser.parse_args(inp)
+                self._run(args)
 
             except EOFError:
              return
@@ -46,7 +41,11 @@ class InterfaceTextGenerator:
     def _help(self):
         pass
 
-    def _run(self):
-        self._trainer.put_file(self._input_file, self._lower_case)
+    def _run(self, args):
+        if args.input_path != '':
+            self._trainer.put_file(args.input_path, args.lower_case)
+        else:
+            sel
+
         self._trainer.get_frequency_of_following()
-        self._trainer.record_model_in_file(self._model_path)
+        self._trainer.record_model_in_file(args.model)

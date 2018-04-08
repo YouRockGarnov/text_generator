@@ -30,7 +30,6 @@ class Generator:
     def _normalize(self, frequency: dict):
         mx = max(frequency.values())
 
-        print(frequency.values())
         return dict([ (pair[0], pair[1] / mx) for pair in frequency.items() ])
 
     def set_length(self, le):

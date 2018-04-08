@@ -1,4 +1,4 @@
-from generate import Generator
+from train.generate import Generator
 from GeneratorInterface import GeneratorInterface
 
 

@@ -1,5 +1,5 @@
 import argparse
-from generate import Generator
+from train.generate import Generator
 
 class GeneratorInterface:
     def __init__(self):
