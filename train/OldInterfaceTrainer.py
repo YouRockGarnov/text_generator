@@ -1,5 +1,6 @@
 from trainer import Trainer
 
+
 class InterfaceTrainer:
     def __init__(self, trainer: Trainer):
         self._trainer = trainer
@@ -23,7 +24,7 @@ class InterfaceTrainer:
                         filled_model = True
 
                     elif inp[i] == '--lc':
-                        self._lower_case == True
+                        self._lower_case = True
 
                     elif inp[i] == '--help':
                         self._help()
@@ -35,7 +36,7 @@ class InterfaceTrainer:
                             print('Fill --input-dir and --model, please!')
 
             except EOFError:
-             return
+                return
 
     def _input_dir_file(self):
         self._input_file = input()

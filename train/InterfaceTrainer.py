@@ -1,6 +1,7 @@
 from trainer import Trainer
 import argparse
 
+
 class InterfaceTrainer:
     def __init__(self, trainer: Trainer):
         self._trainer = trainer
@@ -8,19 +9,24 @@ class InterfaceTrainer:
         self._parser = argparse.ArgumentParser(description='Train model with loaded text')
 
         self._parser.add_argument('--input-dir', type=str,
-                                  dest='input_path', default='')
+                                  dest='input_path', default='',
+                                  help='a path to input file. Model will train on the text')
 
         self._parser.add_argument('--model', type=str,
-                                  dest='model', default='')
+                                  dest='model', default='model.json',
+                                  help='a path to the model file')
 
         self._parser.add_argument('--lc', action='store_true',
-                                  dest='lower_case', default=False)
+                                  dest='lower_case', default=False,
+                                  help='should the train system don\'t consider cases or not')
 
         self._parser.add_argument('--load-site', type=str,
-                                  dest='site_file', default='')
+                                  dest='site_file', default='',
+                                  help='the train system can load a text to train from a site')
 
         self._parser.add_argument('--exit', action='store_true',
-                                  dest='exit', default=False)
+                                  dest='exit', default=False,
+                                  help='if --exit exists then the program will end after these commands')
 
     def interactive(self):
         args = None
@@ -33,7 +39,7 @@ class InterfaceTrainer:
                 self._run(args)
 
             except EOFError:
-             return
+                return
 
     def _input_dir_file(self):
         self._input_file = input()
@@ -49,7 +55,7 @@ class InterfaceTrainer:
             raise EOFError
         else:
             if args.input_path != '':
-                self._trainer.put_file(args.input_path, args.lower_case)
+                self._trainer.put_file(args.input_path, args.lower_case) # put file to the train system
             else:
                 pass
 
