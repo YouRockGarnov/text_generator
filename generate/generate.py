@@ -8,6 +8,7 @@ class Generator:
         self._seed = ''
         self._length = 0
         self._path_to_output_file = ''
+        self._frequency = None
 
     # load frequency from file
     def load_model_from_file(self, path_to_file):
@@ -24,9 +25,9 @@ class Generator:
             continuations = self._normalize(self._find_all_pairs(rec_word))
 
             # choose some word from suitable pairs
-            choice = numpy.random.choice(len(continuations), 1, continuations.values())
+            choice = numpy.random.choice(len(continuations), 1, p=continuations.values())
             s = list(continuations.keys())[choice]
-            answer += self.__word_of_pair(s, 2) + ' ' # second word in s + ' '
+            answer += self.__word_of_pair(s, 2) + ' '  # second word in s + ' '
 
             rec_word = self.__word_of_pair(s, 2)  # get second word from s
 

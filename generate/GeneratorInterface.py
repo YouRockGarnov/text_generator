@@ -37,7 +37,7 @@ class GeneratorInterface:
             except EOFError:
                 return
 
-    #run generator
+    # run generator
     def run(self, args):
         gen = Generator()
         gen.length = args.length

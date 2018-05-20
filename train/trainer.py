@@ -10,7 +10,7 @@ class Trainer:
         self._words = list()
 
     # put a text in the file in the train system
-    def put_file(self, name_of_file: str, lower_case: bool): # working
+    def put_file(self, name_of_file: str, lower_case: bool):  # working
         file = open(name_of_file, 'r')
 
         for line in file:

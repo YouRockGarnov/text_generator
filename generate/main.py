@@ -1,4 +1,3 @@
-from generate import Generator
 from GeneratorInterface import GeneratorInterface
 
 

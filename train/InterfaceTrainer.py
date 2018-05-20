@@ -55,7 +55,7 @@ class InterfaceTrainer:
             raise EOFError
         else:
             if args.input_path != '':
-                self._trainer.put_file(args.input_path, args.lower_case) # put file to the train system
+                self._trainer.put_file(args.input_path, args.lower_case)  # put file to the train system
             else:
                 pass
 
