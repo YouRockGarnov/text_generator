@@ -6,24 +6,23 @@ from collections import defaultdict
 
 class Trainer:
     def __init__(self):
-        self._frequency = defaultdict(int)
+        self._frequency = defaultdict(lambda: defaultdict(int))
         self._words = list()
 
     # put a text in the file in the train system
     def put_file(self, name_of_file: str, lower_case: bool):  # working
-        file = open(name_of_file, 'r')
+        with open(name_of_file) as file:
+            for line in file:
+                if line == '':
+                    break
 
-        for line in file:
-            if line == '':
-                break
+                line = self._clear_of_not_char(line)
 
-            line = self._clear_of_not_char(line)
+                # if user set --ls (lower case)
+                if lower_case:
+                    line = line.lower()
 
-            # if user set --ls (lower case)
-            if lower_case:
-                line = line.lower()
-
-            self._words += line.split()
+                self._words += line.split()
 
         print("Putting is done!")
 
@@ -42,7 +41,7 @@ class Trainer:
         # write frequency of word pairs (when one word is after another)
         for (word1, word2) in list(zip(self._words, self._words[1:])):
             s = word1 + '-' + word2
-            self._frequency[s] += 1
+            self._frequency[word1][word2] += 1
 
     # set words in normal form
     @staticmethod

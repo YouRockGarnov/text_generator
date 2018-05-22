@@ -22,23 +22,30 @@ class Generator:
 
         # generate length words
         for i in range(self._length):
-            continuations = self._normalize(self._find_all_pairs(rec_word))
+            continuations = self._normalize(self._frequency[rec_word])
 
-            # choose some word from suitable pairs
-            choice = numpy.random.choice(len(continuations), 1, p=continuations.values())
-            s = list(continuations.keys())[choice]
-            answer += self.__word_of_pair(s, 2) + ' '  # second word in s + ' '
+            # find some word from suitable pairs
+            probability = list(continuations.values())
+            choice = numpy.random.choice(len(probability), 1, p=probability)
 
-            rec_word = self.__word_of_pair(s, 2)  # get second word from s
+            # choose word
+            choiced_str = list(continuations)[choice]
+            answer += choiced_str + ' '
+
+            rec_word = choiced_str
 
         return answer
 
     # normalize the frequency relative to 1
     @staticmethod
     def _normalize(frequency: dict):
-        mx = max(frequency.values())
+        full = sum(frequency.values())
 
-        return dict([(pair[0], pair[1] / mx) for pair in frequency.items()])
+        # return dict([(pair[0], pair[1] / mx) for pair in frequency.items()])
+        # frequency = list(map(lambda neighbors: map(lambda x: x / mx, neighbors), frequency.values()))
+        for item in frequency.items():
+            frequency.update({item[0]: item[1] / full})
+        return frequency
 
     def get_length(self):
         return self._length
@@ -69,39 +76,9 @@ class Generator:
             return self._seed
         else:
             index = numpy.random.choice(len(self._frequency), 1)
-            return self.__word_of_pair(list(self._frequency.keys())[index], 1)
+            return list(self._frequency.keys())[index]
 
     # return <number> word in pair
     @staticmethod
     def __word_of_pair(pair, number):
         return pair.split('-')[number - 1]
-
-    # return dict of pairs which meet with <word> in the model
-    def _find_all_pairs(self, word: str):
-        keys = self._frequency.keys()
-
-        answer = dict()
-        for pair in keys:
-            first_word = pair.split('-')[0]
-
-            if first_word == word:
-                answer[pair] = self._frequency[pair]
-
-        return answer
-
-    '''
-    def _find_all_continuations(self):
-        # keys = self._frequency.keys()
-
-        keys = self._frequency.keys()
-        answer = dict()
-        for s in keys:
-            pair = s.split('-')
-
-            if answer.get(pair[0]) == None:
-                answer[pair[0]] = [pair[1]]
-            else:
-                answer[pair[0]].append(pair[1])
-
-        return answer
-    '''
