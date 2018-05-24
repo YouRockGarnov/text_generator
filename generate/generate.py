@@ -23,6 +23,9 @@ class Generator:
 
         # generate length words
         for i in range(self._length):
+            if rec_word not in self._frequency:
+                rec_word = self._get_seed()
+
             continuations = self._normalize(self._frequency[rec_word])
 
             # find some word from suitable pairs

@@ -10,7 +10,7 @@ class InterfaceTrainer:
 
         self._parser.add_argument('--input-dir', type=str,
                                   dest='input_path', default='',
-                                  help='a path to input file. Model will train on the text')
+                                  help='a path to input dir. Model will train on the text')
 
         self._parser.add_argument('--model', type=str,
                                   dest='model', default='model.json',

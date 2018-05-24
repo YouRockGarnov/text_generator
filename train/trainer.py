@@ -1,7 +1,7 @@
 import json
 # from pymorphy2 import MorphAnalyzer as pm
-import urllib
 from collections import defaultdict
+import os
 
 
 class Trainer:
@@ -10,19 +10,22 @@ class Trainer:
         self._words = list()
 
     # put a text in the file in the train system
-    def put_file(self, name_of_file: str, lower_case: bool):  # working
-        with open(name_of_file) as file:
-            for line in file:
-                if line == '':
-                    break
+    def put_file(self, name_of_dir: str, lower_case: bool):  # working
+        for filename in os.listdir(name_of_dir):
+            with open(name_of_dir + filename) as file:
+                for line in file:
+                    if line == '':
+                        break
 
-                line = self._clear_of_not_char(line)
+                    line = self._clear_of_not_char(line)
 
-                # if user set --ls (lower case)
-                if lower_case:
-                    line = line.lower()
+                    # if user set --ls (lower case)
+                    if lower_case:
+                        line = line.lower()
 
-                self._words += line.split()
+                    self._words += line.split()
+
+                self._words.pop()
 
         print("Putting is done!")
 
