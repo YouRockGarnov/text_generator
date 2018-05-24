@@ -77,8 +77,3 @@ class Generator:
         else:
             index = numpy.random.choice(len(self._frequency), 1)
             return list(self._frequency.keys())[index]
-
-    # return <number> word in pair
-    @staticmethod
-    def __word_of_pair(pair, number):
-        return pair.split('-')[number - 1]

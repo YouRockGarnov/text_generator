@@ -27,11 +27,6 @@ class Trainer:
         print("Putting is done!")
 
     @staticmethod
-    def put_site(url: str, lower_case: bool):
-        response = urllib.urlopen('https://docs.python.org/2/howto/urllib2.html')
-        html = response.read()
-
-    @staticmethod
     def _clear_of_not_char(s: str):  # working
         return ''.join(char for char in s if char.isalnum() or char == ' ')
 
@@ -40,7 +35,6 @@ class Trainer:
 
         # write frequency of word pairs (when one word is after another)
         for (word1, word2) in list(zip(self._words, self._words[1:])):
-            s = word1 + '-' + word2
             self._frequency[word1][word2] += 1
 
     # set words in normal form
