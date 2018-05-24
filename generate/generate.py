@@ -18,7 +18,8 @@ class Generator:
     # generate a text which has the length = self.length and based on the model
     def generate(self):
         rec_word = self._get_seed()
-        answer = rec_word + ' '
+        answer = [rec_word]
+        size_of_row = len(rec_word)
 
         # generate length words
         for i in range(self._length):
@@ -30,11 +31,17 @@ class Generator:
 
             # choose word
             choiced_str = list(continuations)[choice]
-            answer += choiced_str + ' '
-
             rec_word = choiced_str
 
-        return answer
+            size_of_row += len(choiced_str)
+            if size_of_row >= 50:
+                choiced_str = choiced_str + '\n'
+                size_of_row = 0
+
+            answer.append(choiced_str)
+
+        answer = ' '.join(answer)
+        return answer.replace('\n ', '\n')
 
     # normalize the frequency relative to 1
     @staticmethod
